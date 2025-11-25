@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manual Punto Pago & Nuvei</title>
+
+  <!-- Fuente bonita -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero" id="top">
+    <div class="hero__content container">
+      <h1 class="hero__title">Manual de uso – Punto Pago &amp; Nuvei</h1>
+      <p class="hero__subtitle">
+        Procedimiento mensual para descargar, formatear y consolidar los movimientos
+        de Punto Pago y Nuvei en Excel.
+      </p>
+      <div class="hero__tags">
+        <span class="pill pill--primary">Finanzas</span>
+        <span class="pill pill--soft">Conciliación</span>
+        <span class="pill pill--soft">Paso a paso</span>
+      </div>
+      <p class="hero__meta">
+        Última actualización: <span>MM/AAAA</span> • Edita este texto con la fecha actual
+      </p>
+    </div>
+  </header>
+
+  <nav class="top-nav">
+    <div class="container nav__inner">
+      <span class="nav__title">Contenido</span>
+      <ul class="nav__links">
+        <li><a href="#introduccion">Introducción</a></li>
+        <li><a href="#flujo">Flujo general</a></li>
+        <li><a href="#puntopago">Punto Pago</a></li>
+        <li><a href="#excel">Excel</a></li>
+        <li><a href="#maestro">Archivo maestro</a></li>
+        <li><a href="#macro">Macro</a></li>
+        <li><a href="#home-recon">Home &amp; Recon</a></li>
+        <li><a href="#nuvei">Nuvei</a></li>
+        <li><a href="#cierre">Cierre</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- INTRODUCCIÓN -->
+    <section id="introduccion" class="card">
+      <h2>1. Objetivo del manual</h2>
+      <p>
+        Este manual explica, paso a paso, cómo realizar el proceso mensual de descarga,
+        formateo y consolidación de los movimientos de <strong>Punto Pago</strong> y
+        <strong>Nuvei</strong> en Excel, para mantener actualizados:
+      </p>
+      <ul>
+        <li>El archivo maestro <strong>Punto Pago Transactions [Año]</strong>.</li>
+        <li>La hoja <strong>Home</strong> con el resumen mensual.</li>
+        <li>La hoja <strong>Recon</strong> para conciliación con Nuvei.</li>
+      </ul>
+
+      <div class="callout tip">
+        <p><strong>TIP:</strong> Este manual está pensado para que cualquier persona del equipo
+        pueda repetir el proceso sin depender de otra persona.</p>
+      </div>
+
+      <!-- IMAGEN 01 -->
+      <figure class="figure">
+        <img src="images/01-portada.png" alt="Imagen de portada o logo interno" />
+        <figcaption>Figura 1. Portada / logo del área o de la empresa.</figcaption>
+      </figure>
+    </section>
+
+    <!-- FLUJO GENERAL -->
+    <section id="flujo" class="card">
+      <h2>2. Flujo general del proceso</h2>
+      <p>El flujo completo se divide en dos grandes partes:</p>
+      <ol>
+        <li>
+          <strong>Punto Pago</strong>
+          <ul>
+            <li>Entrar al portal y filtrar por rango de fechas.</li>
+            <li>Descargar el archivo en CSV.</li>
+            <li>Formatear la data en Excel.</li>
+            <li>Pegar en el archivo maestro del año.</li>
+            <li>Ejecutar la macro <strong>Monthly SUMMARY</strong>.</li>
+            <li>Actualizar las hojas <strong>Home</strong> y <strong>Recon</strong>.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Nuvei</strong>
+          <ul>
+            <li>Entrar al cPanel.</li>
+            <li>Filtrar por fechas y <strong>Acquirer Bank: Punto Pago Direct</strong>.</li>
+            <li>Configurar columnas necesarias.</li>
+            <li>Descargar el reporte.</li>
+          </ul>
+        </li>
+      </ol>
+
+      <!-- IMAGEN 02 -->
+      <figure class="figure">
+        <img src="images/02-flujo-general.png" alt="Diagrama del flujo general del proceso" />
+        <figcaption>Figura 2. Flujo general: Punto Pago → Excel/Macro → Home &amp; Recon y Nuvei → Reporte.</figcaption>
+      </figure>
+    </section>
+
+    <!-- PUNTO PAGO -->
+    <section id="puntopago" class="card">
+      <h2>3. Procedimiento en Punto Pago</h2>
+
+      <h3>3.1. Ingreso a la plataforma</h3>
+      <ol>
+        <li>Abrir el navegador (Chrome, Edge, etc.).</li>
+        <li>Ir al enlace de Punto Pago (URL guardado en Teams).</li>
+        <li>Iniciar sesión con tu usuario y contraseña.</li>
+      </ol>
+
+      <!-- IMAGEN 03 -->
+      <figure class="figure">
+        <img src="images/03-login-puntopago.png" alt="Pantalla de login de Punto Pago" />
+        <figcaption>Figura 3. Pantalla de inicio de sesión de Punto Pago.</figcaption>
+      </figure>
+
+      <h3>3.2. Selección del rango de fechas en el Dashboard</h3>
+      <ol>
+        <li>Una vez dentro, ir a la sección <strong>Dashboard</strong>.</li>
+        <li>En <strong>Start Date</strong>, seleccionar el primer día del mes (ejemplo: 01/11/2025).</li>
+        <li>En <strong>End Date</strong>, seleccionar siempre el <strong>día anterior</strong> al día actual.</li>
+        <li>Hacer clic en el botón para aplicar el rango (por ejemplo, <strong>Select</strong>).</li>
+        <li>Hacer scroll hacia abajo hasta ver la opción de exportar.</li>
+        <li>Hacer clic en <strong>CSV</strong> para descargar el archivo con los movimientos.</li>
+      </ol>
+
+      <!-- IMAGEN 04 -->
+      <figure class="figure">
+        <img src="images/04-dashboard-fechas.png" alt="Dashboard de Punto Pago con filtros de fechas" />
+        <figcaption>Figura 4. Dashboard de Punto Pago con el rango de fechas seleccionado.</figcaption>
+      </figure>
+
+      <!-- IMAGEN 05 -->
+      <figure class="figure">
+        <img src="images/05-export-csv.png" alt="Opción de exportar CSV en Punto Pago" />
+        <figcaption>Figura 5. Opción para exportar los movimientos a CSV.</figcaption>
+      </figure>
+    </section>
+
+    <!-- EXCEL FORMATEO -->
+    <section id="excel" class="card">
+      <h2>4. Formateo del archivo CSV en Excel</h2>
+
+      <h3>4.1. Abrir el archivo CSV</h3>
+      <ol>
+        <li>Ubicar el archivo descargado (normalmente en la carpeta <strong>Descargas</strong>).</li>
+        <li>Abrir el archivo con <strong>Microsoft Excel</strong>.</li>
+      </ol>
+
+      <!-- IMAGEN 06 -->
+      <figure class="figure">
+        <img src="images/06-csv-bruto-excel.png" alt="Archivo CSV recién abierto en Excel" />
+        <figcaption>Figura 6. Archivo CSV recién abierto en Excel, antes de formatear.</figcaption>
+      </figure>
+
+      <h3>4.2. Usar “Text to Columns” (Texto en columnas)</h3>
+      <ol>
+        <li>Seleccionar la columna que contiene todos los datos (generalmente la columna A).</li>
+        <li>Ir a la pestaña <strong>Data (Datos)</strong> en la parte superior.</li>
+        <li>Hacer clic en <strong>Text to Columns</strong>.</li>
+        <li>En el asistente, elegir <strong>Delimited (Delimitado)</strong> y hacer clic en <strong>Next</strong>.</li>
+        <li>En los delimitadores, marcar <strong>Other (Otro)</strong> y escribir el separador correcto (por ejemplo, <strong>;</strong>).</li>
+        <li>Desmarcar delimitadores que no apliquen, luego <strong>Next</strong> y <strong>Finish</strong>.</li>
+        <li>Verificar que cada dato quede en su columna (fecha, referencia, monto, etc.).</li>
+      </ol>
+
+      <!-- IMAGEN 07 -->
+      <figure class="figure">
+        <img src="images/07-text-to-columns.png" alt="Asistente de Text to Columns en Excel" />
+        <figcaption>Figura 7. Asistente de Text to Columns con el delimitador configurado.</figcaption>
+      </figure>
+
+      <!-- IMAGEN 08 -->
+      <figure class="figure">
+        <img src="images/08-datos-separados.png" alt="Datos separados en columnas después de Text to Columns" />
+        <figcaption>Figura 8. Datos ya separados correctamente en columnas.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ARCHIVO MAESTRO -->
+    <section id="maestro" class="card">
+      <h2>5. Cargar la información en el archivo maestro</h2>
+
+      <h3>5.1. Abrir el archivo maestro del año</h3>
+      <ol>
+        <li>Abrir el archivo de Excel <strong>Punto Pago Transactions 2025</strong> (o el año correspondiente).</li>
+        <li>Ir a la hoja del <strong>mes correspondiente</strong> (ejemplo: Ene-2025, Nov-2025).</li>
+      </ol>
+
+      <!-- IMAGEN 09 -->
+      <figure class="figure">
+        <img src="images/09-hoja-mes-antes.png" alt="Hoja del mes antes de pegar datos" />
+        <figcaption>Figura 9. Hoja del mes en el archivo maestro antes de pegar la información.</figcaption>
+      </figure>
+
+      <h3>5.2. Pegar los movimientos del mes</h3>
+      <ol>
+        <li>Volver al archivo con la data ya separada en columnas.</li>
+        <li>Seleccionar todas las filas con las transacciones del rango descargado.</li>
+        <li>Copiar la selección (<strong>Ctrl + C</strong>).</li>
+        <li>Ir a la hoja del mes en el archivo maestro.</li>
+        <li>Pegar (<strong>Ctrl + V</strong>) a partir de la primera fila disponible, respetando el orden de columnas.</li>
+      </ol>
+
+      <!-- IMAGEN 10 -->
+      <figure class="figure">
+        <img src="images/10-hoja-mes-despues.png" alt="Hoja del mes con la data ya pegada" />
+        <figcaption>Figura 10. Hoja del mes con la información del CSV ya pegada.</figcaption>
+      </figure>
+
+      <h3>5.3. Ajustar el formato de la fecha</h3>
+      <ol>
+        <li>Seleccionar la columna donde está la fecha de la transacción.</li>
+        <li>En la pestaña <strong>Home</strong>, ir a la sección de formato de número.</li>
+        <li>Cambiar a un formato de <strong>Fecha (Date)</strong> estándar (por ejemplo, DD/MM/AAAA).</li>
+      </ol>
+    </section>
+
+    <!-- MACRO -->
+    <section id="macro" class="card">
+      <h2>6. Ejecución de la macro “Monthly SUMMARY”</h2>
+
+      <h3>6.1. Abrir el menú de macros</h3>
+      <ol>
+        <li>Con el archivo maestro abierto, ir a la pestaña <strong>Developer / Programador</strong>.</li>
+        <li>Hacer clic en <strong>Macros</strong>.</li>
+        <li>En la lista, seleccionar <strong>Monthly SUMMARY</strong>.</li>
+        <li>Hacer clic en <strong>Run (Ejecutar)</strong>.</li>
+      </ol>
+
+      <!-- IMAGEN 11 -->
+      <figure class="figure">
+        <img src="images/11-developer-macros.png" alt="Pestaña Developer con botón Macros" />
+        <figcaption>Figura 11. Pestaña Developer / Programador con acceso a Macros.</figcaption>
+      </figure>
+
+      <!-- IMAGEN 12 -->
+      <figure class="figure">
+        <img src="images/12-ventana-macro.png" alt="Ventana de macros con Monthly SUMMARY" />
+        <figcaption>Figura 12. Ventana de macros con Monthly SUMMARY seleccionada.</figcaption>
+      </figure>
+
+      <h3>6.2. Revisar el resultado de la macro</h3>
+      <ol>
+        <li>Ir a la hoja donde se genera el resumen (por ejemplo, <strong>Summary</strong> o <strong>Resumen</strong>).</li>
+        <li>Verificar que los totales correspondan al mes que acabas de actualizar.</li>
+      </ol>
+    </section>
+
+    <!-- HOME & RECON -->
+    <section id="home-recon" class="card">
+      <h2>7. Actualización de las hojas Home y Recon</h2>
+
+      <h3>7.1. Actualizar la hoja Home</h3>
+      <ol>
+        <li>Ir a la hoja <strong>Home</strong>.</li>
+        <li>Ubicar la fila del mes que estás actualizando.</li>
+        <li>Copiar del resumen los totales del mes (monto total, cantidad de transacciones, etc.).</li>
+        <li>Pegar esos valores en las columnas correspondientes de la fila del mes.</li>
+      </ol>
+
+      <!-- IMAGEN 13 -->
+      <figure class="figure">
+        <img src="images/13-home-antes-despues.png" alt="Hoja Home antes y después de actualizar" />
+        <figcaption>Figura 13. Hoja Home con el mes actualizado.</figcaption>
+      </figure>
+
+      <h3>7.2. Actualizar la hoja Recon</h3>
+      <ol>
+        <li>Ir a la hoja <strong>Recon</strong>.</li>
+        <li>En el bloque correspondiente al mes, pegar el detalle que se usará para conciliación (por ejemplo, columnas A–C de las transacciones).</li>
+        <li>Guardar el archivo maestro.</li>
+      </ol>
+
+      <!-- IMAGEN 14 -->
+      <figure class="figure">
+        <img src="images/14-recon-mes.png" alt="Hoja Recon con la data del mes" />
+        <figcaption>Figura 14. Hoja Recon con el detalle del mes listo para conciliación.</figcaption>
+      </figure>
+    </section>
+
+    <!-- NUVEI -->
+    <section id="nuvei" class="card">
+      <h2>8. Descarga de movimientos en Nuvei</h2>
+
+      <h3>8.1. Ingreso al cPanel de Nuvei</h3>
+      <ol>
+        <li>Abrir el navegador e ingresar al cPanel de <strong>Nuvei</strong>.</li>
+        <li>Iniciar sesión con usuario y contraseña autorizados.</li>
+        <li>Ir a la sección <strong>Movements</strong> o <strong>Transactions / Movements</strong>.</li>
+      </ol>
+
+      <!-- IMAGEN 15 -->
+      <figure class="figure">
+        <img src="images/15-nuvei-dashboard.png" alt="Pantalla principal del cPanel de Nuvei" />
+        <figcaption>Figura 15. Pantalla principal del cPanel de Nuvei.</figcaption>
+      </figure>
+
+      <h3>8.2. Configurar filtros de fechas y banco adquirente</h3>
+      <ol>
+        <li>Seleccionar el <strong>Start Date</strong> al inicio del periodo (por ejemplo, inicio de mes).</li>
+        <li>Seleccionar el <strong>End Date</strong> siempre como el <strong>día anterior</strong> al día actual.</li>
+        <li>En <strong>Acquirer Bank</strong>, seleccionar <strong>Punto Pago Direct</strong>.</li>
+        <li>Aplicar los filtros.</li>
+      </ol>
+
+      <!-- IMAGEN 16 -->
+      <figure class="figure">
+        <img src="images/16-nuvei-filtros.png" alt="Filtros en Nuvei con Acquirer Bank: Punto Pago Direct" />
+        <figcaption>Figura 16. Filtros de Movements configurados en Nuvei.</figcaption>
+      </figure>
+
+      <h3>8.3. Configurar columnas en “Manage Report Settings”</h3>
+      <ol>
+        <li>En la misma pantalla, abrir <strong>Manage Report Settings</strong>.</li>
+        <li>En la lista de columnas, dejar marcadas solo:
+          <ul>
+            <li><strong>Bank Transaction ID</strong></li>
+            <li><strong>Acquirer Bank (Punto Pago Direct)</strong></li>
+          </ul>
+        </li>
+        <li>Guardar la configuración.</li>
+      </ol>
+
+      <!-- IMAGEN 17 -->
+      <figure class="figure">
+        <img src="images/17-manage-report-settings.png" alt="Manage Report Settings en Nuvei" />
+        <figcaption>Figura 17. Manage Report Settings con solo las columnas necesarias.</figcaption>
+      </figure>
+
+      <h3>8.4. Descargar el reporte</h3>
+      <ol>
+        <li>Con filtros y columnas ya configurados, hacer clic en el botón de descarga / exportación del reporte.</li>
+        <li>Guardar el archivo en la carpeta correspondiente al mes o proceso de conciliación.</li>
+        <li>Si se va a trabajar en Excel, ajustar formatos de fecha y monto como en los demás archivos.</li>
+      </ol>
+
+      <!-- IMAGEN 18 -->
+      <figure class="figure">
+        <img src="images/18-nuvei-download-report.png" alt="Botón de descarga del reporte en Nuvei" />
+        <figcaption>Figura 18. Descarga del reporte desde Nuvei.</figcaption>
+      </figure>
+    </section>
+
+    <!-- CIERRE -->
+    <section id="cierre" class="card">
+      <h2>9. Cierre del proceso</h2>
+      <p>Al finalizar el flujo, se debe verificar que:</p>
+      <ul>
+        <li>El archivo <strong>Punto Pago Transactions [Año]</strong> esté actualizado con todas las transacciones del mes.</li>
+        <li>La hoja <strong>Home</strong> tenga el resumen mensual correcto.</li>
+        <li>La hoja <strong>Recon</strong> tenga el detalle necesario para conciliación.</li>
+        <li>El reporte de <strong>Nuvei</strong> se haya descargado filtrado por <strong>Punto Pago Direct</strong> y con las columnas correctas.</li>
+      </ul>
+
+      <div class="callout info">
+        <p><strong>Recuerda:</strong> Este manual se puede imprimir o guardar como PDF desde el navegador
+          (Ctrl + P &rarr; Guardar como PDF) una vez desplegado en Vercel.</p>
+      </div>
+
+      <p class="back-to-top">
+        <a href="#top">↑ Volver arriba</a>
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Manual de uso Punto Pago &amp; Nuvei • Uso interno</p>
+    </div>
+  </footer>
+</body>
+</html>
